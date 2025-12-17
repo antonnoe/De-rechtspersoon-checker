@@ -3,264 +3,596 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rechtspersoon-checker Frankrijk</title>
-
+<title>Rechtsvorm kiezen in Frankrijk - Besliskader</title>
 <style>
-/* ===== Root & reset ===== */
-#nlfr-tool {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  line-height: 1.8;
-  color: #222;
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-/* ===== Head block (no H1!) ===== */
-#nlfr-tool .intro {
-  border-left: 4px solid #800000;
-  padding-left: 16px;
-  margin-bottom: 32px;
-}
-#nlfr-tool .intro .title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #800000;
-  margin-bottom: 6px;
-}
-#nlfr-tool .intro p {
+* {
   margin: 0;
-  color: #444;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* ===== Steps ===== */
-.step {
-  margin-bottom: 36px;
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.7;
+  color: #2c2c2c;
+  background: #fafafa;
 }
-.step-title {
+
+#rechtsvorm-kader {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background: white;
+}
+
+.kader-intro {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.kader-titel {
+  font-size: 28px;
+  font-weight: normal;
+  color: #800000;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.kader-intro p {
+  font-size: 17px;
+  color: #4a4a4a;
+  margin-bottom: 16px;
+}
+
+.kader-intro p.nadruk {
+  font-style: italic;
+  color: #666;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.beslismoment {
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.beslismoment.actief {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.beslismoment h3 {
+  font-size: 20px;
   font-weight: 600;
+  color: #2c2c2c;
   margin-bottom: 12px;
 }
-.options {
-  display: grid;
-  gap: 12px;
-}
-.option {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 14px 16px;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-}
-.option:hover {
-  border-color: #800000;
-  background: #faf6f6;
-}
-.option.selected {
-  border-color: #800000;
-  background: #f7eeee;
+
+.beslismoment-context {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  font-style: italic;
 }
 
-/* ===== Button ===== */
-.btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 18px;
-  background: #800000;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 500;
-}
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.keuze-opties {
+  margin-left: 0;
 }
 
-/* ===== Result ===== */
-#result {
-  border-top: 2px solid #eee;
-  padding-top: 32px;
+.keuze {
+  display: block;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  text-align: left;
+  width: 100%;
+  color: #2c2c2c;
+}
+
+.keuze:hover {
+  border-color: #800000;
+  background: #f9f7f7;
+}
+
+.keuze.gekozen {
+  border-color: #800000;
+  background: #faf5f5;
+  font-weight: 600;
+}
+
+.keuze-detail {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+  font-weight: normal;
+}
+
+#resultaat-sectie {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 2px solid #800000;
   display: none;
 }
-.result-title {
-  font-size: 1.4rem;
+
+.resultaat-intro {
+  font-size: 20px;
+  color: #800000;
+  margin-bottom: 32px;
   font-weight: 600;
-  margin-bottom: 16px;
 }
-.choices {
-  display: grid;
-  gap: 16px;
+
+.hoofdkeuze, .alternatief {
+  background: #f9f9f9;
+  border-left: 4px solid #800000;
+  padding: 24px;
   margin-bottom: 24px;
 }
-.choice {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
+
+.alternatief {
+  border-left-color: #999;
 }
-.choice strong {
+
+.rechtsvorm-naam {
+  font-size: 22px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin-bottom: 12px;
+}
+
+.rechtsvorm-uitleg {
+  font-size: 16px;
+  color: #4a4a4a;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.kernpunten {
+  list-style: none;
+  margin-top: 16px;
+}
+
+.kernpunten li {
+  padding-left: 24px;
+  position: relative;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.kernpunten li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
   color: #800000;
 }
 
-/* ===== Tabs ===== */
-.tabs {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.tab {
-  padding: 8px 14px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-.tab.active {
-  background: #800000;
-  color: #fff;
-  border-color: #800000;
-}
-.tab-content {
-  display: none;
-}
-.tab-content.active {
-  display: block;
+.waarom-niet {
+  margin-top: 40px;
+  padding: 24px;
+  background: #fef8f5;
+  border: 1px solid #f0d0c0;
 }
 
-/* ===== Lists ===== */
-ul {
-  padding-left: 20px;
+.waarom-niet h4 {
+  font-size: 18px;
+  color: #800000;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
-li {
+
+.andere-vorm {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0d0c0;
+}
+
+.andere-vorm:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.vorm-naam {
+  font-weight: 600;
+  color: #2c2c2c;
   margin-bottom: 6px;
+  font-size: 16px;
 }
 
-/* ===== Disclaimer ===== */
-.disclaimer {
-  margin-top: 32px;
-  font-size: 0.85rem;
+.vorm-reden {
+  font-size: 15px;
   color: #666;
+  line-height: 1.5;
+}
+
+.vorm-wanneer {
+  font-size: 14px;
+  color: #800000;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.disclaimer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+}
+
+.verberg {
+  display: none !important;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
-
 <body>
-<div id="nlfr-tool">
 
-  <div class="intro">
-    <div class="title">Welke rechtsvorm past bij jouw situatie in Frankrijk?</div>
-    <p>Een praktisch besliskader voor (toekomstige) ondernemers. Geen juridisch advies, wel duidelijke uitleg.</p>
+<div id="rechtsvorm-kader">
+  
+  <div class="kader-intro">
+    <h2 class="kader-titel">De juiste rechtsvorm kiezen in Frankrijk: een praktisch besliskader</h2>
+    <p>Als Nederlandse ondernemer denk je waarschijnlijk in termen van BV, eenmanszaak of ZZP. Maar het Franse systeem werkt fundamenteel anders. Niet alleen de namen verschillen — de hele logica erachter is anders.</p>
+    <p>Dit besliskader helpt je stap voor stap naar een weloverwogen keuze. We beginnen met de kernvragen die écht bepalen welke rechtsvorm logisch is in jouw situatie.</p>
+    <p class="nadruk">Belangrijk: dit is geen juridisch advies maar een praktische eerste oriëntatie gebaseerd op ervaring met Nederlandse ondernemers in Frankrijk.</p>
   </div>
 
-  <!-- STEP 1 -->
-  <div class="step" data-step="solo">
-    <div class="step-title">1. Ga je alleen ondernemen of samen met anderen?</div>
-    <div class="options">
-      <div class="option" data-value="solo">Ik start alleen</div>
-      <div class="option" data-value="samen">Met partner of compagnon</div>
-    </div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="step" data-step="activiteit">
-    <div class="step-title">2. Wat voor type activiteit ga je uitoefenen?</div>
-    <div class="options">
-      <div class="option" data-value="dienst">Dienstverlening / zelfstandig beroep</div>
-      <div class="option" data-value="handel">Handel / verkoop</div>
-      <div class="option" data-value="toerisme">Toerisme (gîte, chambres d’hôtes)</div>
-    </div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="step" data-step="ambitie">
-    <div class="step-title">3. Hoe zie je dit project de komende jaren?</div>
-    <div class="options">
-      <div class="option" data-value="klein">Kleinschalig, zelfstandig inkomen</div>
-      <div class="option" data-value="groei">Mogelijke groei, maar geen investeerders</div>
-      <div class="option" data-value="groot">Groei met personeel of externe partijen</div>
-    </div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="step" data-step="sociaal">
-    <div class="step-title">4. Wat weegt voor jou zwaarder?</div>
-    <div class="options">
-      <div class="option" data-value="lasten">Lagere lasten en eenvoud</div>
-      <div class="option" data-value="bescherming">Meer sociale bescherming</div>
-    </div>
-  </div>
-
-  <button class="btn" id="showResult">Toon mijn resultaat</button>
-
-  <!-- RESULT -->
-  <div id="result">
-    <div class="result-title">Op basis van jouw antwoorden komen deze rechtsvormen het meest in beeld:</div>
-
-    <div class="choices">
-      <div class="choice">
-        <strong>Entreprise Individuelle (EI)</strong><br>
-        Vaak de meest logische startvorm voor zelfstandigen uit Nederland.
-      </div>
-      <div class="choice">
-        <strong>EURL</strong><br>
-        Meer structuur en geschikt als je wilt doorgroeien.
+  <div id="beslissingen">
+    
+    <div class="beslismoment actief" data-stap="1">
+      <h3>De basiskeuze: alleen of samen?</h3>
+      <p class="beslismoment-context">Dit bepaalt direct 50% van je opties.</p>
+      <div class="keuze-opties">
+        <button class="keuze" data-antwoord="solo">
+          Ik onderneem alleen
+          <span class="keuze-detail">Geen vennoten, geen externe investeerders</span>
+        </button>
+        <button class="keuze" data-antwoord="samen">
+          Met partner(s) of investeerders
+          <span class="keuze-detail">Nu of binnen afzienbare tijd</span>
+        </button>
       </div>
     </div>
 
-    <div class="tabs">
-      <div class="tab active" data-tab="best">Beste keuze bij jouw input</div>
-      <div class="tab" data-tab="niet">Waarom niet andere vormen?</div>
+    <div class="beslismoment" data-stap="2">
+      <h3>Je activiteit: wat ga je precies doen?</h3>
+      <p class="beslismoment-context">Sommige activiteiten vereisen specifieke rechtsvormen of hebben fiscale implicaties.</p>
+      <div class="keuze-opties">
+        <button class="keuze" data-antwoord="diensten">
+          Dienstverlening of advies
+          <span class="keuze-detail">Consulting, IT, creatief werk, coaching</span>
+        </button>
+        <button class="keuze" data-antwoord="handel">
+          Handel of ambacht
+          <span class="keuze-detail">Verkoop, horeca, bouw, installatie</span>
+        </button>
+        <button class="keuze" data-antwoord="vastgoed">
+          Verhuur of toerisme
+          <span class="keuze-detail">Gîtes, chambres d'hôtes, lange verhuur</span>
+        </button>
+      </div>
     </div>
 
-    <div class="tab-content active" id="tab-best">
-      <ul>
-        <li>Eenvoudige opzet en lage instapkosten</li>
-        <li>Logisch bij solo-ondernemerschap</li>
-        <li>Beperkte administratieve last</li>
-        <li>Mogelijkheid om later over te stappen</li>
+    <div class="beslismoment" data-stap="3">
+      <h3>Groeiambitie: blijf je klein of wil je opschalen?</h3>
+      <p class="beslismoment-context">Be honest — niet iedereen wil een imperium bouwen.</p>
+      <div class="keuze-opties">
+        <button class="keuze" data-antwoord="klein">
+          Bewust kleinschalig
+          <span class="keuze-detail">Vrijheid en eenvoud belangrijker dan groei</span>
+        </button>
+        <button class="keuze" data-antwoord="flexibel">
+          Open voor groei
+          <span class="keuze-detail">Start klein, maar sluit opschaling niet uit</span>
+        </button>
+        <button class="keuze" data-antwoord="ambitieus">
+          Groeistrategie vanaf dag 1
+          <span class="keuze-detail">Personeel, investeerders, meerdere vestigingen</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="beslismoment" data-stap="4">
+      <h3>Risico en aansprakelijkheid: hoeveel durf je?</h3>
+      <p class="beslismoment-context">In Frankrijk is privé-aansprakelijkheid sinds 2022 beter geregeld, maar verschillen blijven.</p>
+      <div class="keuze-opties">
+        <button class="keuze" data-antwoord="laag-risico">
+          Minimaal risico, weinig kapitaal
+          <span class="keuze-detail">Vooral eigen tijd en kennis als investering</span>
+        </button>
+        <button class="keuze" data-antwoord="gemiddeld-risico">
+          Normale bedrijfsrisico's
+          <span class="keuze-detail">Contracten, leveranciers, voorraad</span>
+        </button>
+        <button class="keuze" data-antwoord="hoog-risico">
+          Substantiële investeringen
+          <span class="keuze-detail">Machines, vastgoed, grote voorraden</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="beslismoment" data-stap="5">
+      <h3>Sociale zekerheid: TNS of assimilé salarié?</h3>
+      <p class="beslismoment-context">Cruciaal verschil met Nederland: je sociale regime hangt af van je rechtsvorm.</p>
+      <div class="keuze-opties">
+        <button class="keuze" data-antwoord="tns">
+          Lagere lasten, basisdekking (TNS)
+          <span class="keuze-detail">±45% sociale lasten, beperktere dekking</span>
+        </button>
+        <button class="keuze" data-antwoord="salarie">
+          Werknemersdekking accepteren
+          <span class="keuze-detail">±65-70% lasten, uitgebreidere rechten</span>
+        </button>
+        <button class="keuze" data-antwoord="onzeker">
+          Weet ik nog niet
+          <span class="keuze-detail">Eerst andere factoren bekijken</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="resultaat-sectie">
+    <p class="resultaat-intro">Op basis van jouw situatie komen we tot deze analyse:</p>
+    
+    <div class="hoofdkeuze">
+      <h3 class="rechtsvorm-naam"><!-- wordt dynamisch gevuld --></h3>
+      <p class="rechtsvorm-uitleg"><!-- wordt dynamisch gevuld --></p>
+      <ul class="kernpunten">
+        <!-- wordt dynamisch gevuld -->
       </ul>
     </div>
 
-    <div class="tab-content" id="tab-niet">
-      <ul>
-        <li><strong>SASU:</strong> hogere lasten, pas zinvol bij groei of investeerders</li>
-        <li><strong>SARL:</strong> vooral bedoeld voor meerdere vennoten</li>
-        <li><strong>Micro-entreprise:</strong> alleen geschikt onder strikte omzetgrenzen</li>
+    <div class="alternatief">
+      <h3 class="rechtsvorm-naam"><!-- wordt dynamisch gevuld --></h3>
+      <p class="rechtsvorm-uitleg"><!-- wordt dynamisch gevuld --></p>
+      <ul class="kernpunten">
+        <!-- wordt dynamisch gevuld -->
       </ul>
+    </div>
+
+    <div class="waarom-niet">
+      <h4>Waarom andere rechtsvormen hier niet logisch zijn:</h4>
+      <div id="andere-vormen">
+        <!-- wordt dynamisch gevuld -->
+      </div>
     </div>
   </div>
 
   <div class="disclaimer">
-    Deze tool biedt algemene informatie en vervangt geen advies van een accountant, jurist of notaris.
+    Deze analyse is een eerste oriëntatie. Bespreek je specifieke situatie altijd met een Franse accountant of jurist voordat je definitieve keuzes maakt.
   </div>
 
 </div>
 
 <script>
-const state = {};
-document.querySelectorAll('.option').forEach(opt => {
-  opt.addEventListener('click', () => {
-    const step = opt.closest('.step').dataset.step;
-    opt.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-    opt.classList.add('selected');
-    state[step] = opt.dataset.value;
+const antwoorden = {};
+let huidigeStap = 1;
+const totaalStappen = 5;
+
+// Rechtsvorm logica op basis van Nederlandse praktijk in Frankrijk
+const bepaalRechtsvorm = () => {
+  const {solo, activiteit, groei, risico, sociaal} = {
+    solo: antwoorden[1],
+    activiteit: antwoorden[2],
+    groei: antwoorden[3],
+    risico: antwoorden[4],
+    sociaal: antwoorden[5]
+  };
+
+  // Complexe beslislogica gebaseerd op praktijkervaring
+  if (solo === 'samen') {
+    if (groei === 'ambitieus') {
+      return {
+        hoofd: 'SAS',
+        alternatief: 'SARL',
+        anderen: ['SASU', 'EI', 'EURL']
+      };
+    }
+    return {
+      hoofd: 'SARL',
+      alternatief: 'SAS',
+      anderen: ['SASU', 'EI', 'EURL']
+    };
+  }
+
+  // Solo ondernemers
+  if (groei === 'klein' && risico === 'laag-risico') {
+    if (activiteit === 'diensten') {
+      return {
+        hoofd: 'EI',
+        alternatief: 'EURL',
+        anderen: ['SASU', 'SARL', 'SAS']
+      };
+    }
+  }
+
+  if (groei === 'ambitieus' || sociaal === 'salarie') {
+    return {
+      hoofd: 'SASU',
+      alternatief: 'EURL',
+      anderen: ['EI', 'SARL', 'SAS']
+    };
+  }
+
+  if (activiteit === 'vastgoed' && risico === 'hoog-risico') {
+    return {
+      hoofd: 'EURL',
+      alternatief: 'SASU',
+      anderen: ['EI', 'SARL', 'SAS']
+    };
+  }
+
+  if (risico === 'hoog-risico') {
+    return {
+      hoofd: 'EURL',
+      alternatief: 'SASU',
+      anderen: ['EI', 'SARL', 'SAS']
+    };
+  }
+
+  // Default voor de meeste Nederlandse starters
+  return {
+    hoofd: 'EI',
+    alternatief: 'EURL',
+    anderen: ['SASU', 'SARL', 'SAS']
+  };
+};
+
+// Uitgebreide uitleg per rechtsvorm
+const rechtsvormInfo = {
+  'EI': {
+    naam: 'Entreprise Individuelle (EI)',
+    uitleg: 'De meest directe vorm van ondernemen in Frankrijk. Je bent de onderneming, vergelijkbaar met de Nederlandse eenmanszaak maar met betere bescherming van privévermogen sinds 2022.',
+    kernpunten: [
+      'Opstarten binnen enkele dagen via Guichet Unique',
+      'Sinds 2022 automatische scheiding privé/zakelijk vermogen',
+      'TNS sociaal regime: lagere lasten (±45%), basisdekking',
+      'Optie voor micro-entreprise regime bij lage omzet',
+      'Eenvoudige boekhouding, geen jaarrekening publicatie'
+    ],
+    waaromNiet: 'Lastig om investeerders aan te trekken, geen mogelijkheid tot salary split voor belastingoptimalisatie, minder geschikt bij substantiële investeringen of risico\'s.',
+    wanneerWel: 'Perfecte start voor dienstverleners, adviseurs, kleine handel zonder grote investeringen.'
+  },
+  
+  'EURL': {
+    naam: 'EURL (Entreprise Unipersonnelle à Responsabilité Limitée)',
+    uitleg: 'De Franse variant van een eenpersoons-BV. Geeft structuur en professionaliteit met behoud van controle.',
+    kernpunten: [
+      'Beperkte aansprakelijkheid tot inbreng kapitaal',
+      'Keuze tussen IR (inkomstenbelasting) of IS (vennootschapsbelasting)',
+      'TNS regime: redelijke lasten met goede dekking',
+      'Makkelijk om te zetten naar SARL bij groei',
+      'Professionele uitstraling voor B2B'
+    ],
+    waaromNiet: 'Complexere oprichting (statuten, publicatie), jaarrekening verplicht, hogere kosten dan EI, dividenden onder TNS regime minder voordelig.',
+    wanneerWel: 'Bij substantiële investeringen, B2B focus, toekomstplannen met partners.'
+  },
+
+  'SASU': {
+    naam: 'SASU (Société par Actions Simplifiée Unipersonnelle)',
+    uitleg: 'Maximum flexibiliteit en werknemersstatus voor de ondernemer. Populair bij tech-startups en groeibedrijven.',
+    kernpunten: [
+      'Assimilé salarié: werknemersdekking (maar duurder)',
+      'Volledige vrijheid in statuten en governance',
+      'Dividenden zonder sociale lasten (anders dan EURL)',
+      'Aantrekkelijk voor investeerders',
+      'Eenvoudig om te zetten naar SAS'
+    ],
+    waaromNiet: 'Hoge sociale lasten op salaris (65-70%), complexe administratie, overkill voor kleine activiteiten, geen werkloosheidsverzekering ondanks werknemersstatus.',
+    wanneerWel: 'Bij groeistrategie, need voor investeerders, salary/dividend optimalisatie.'
+  },
+
+  'SARL': {
+    naam: 'SARL (Société à Responsabilité Limitée)',
+    uitleg: 'De klassieke Franse BV voor meerdere vennoten. Gereguleerd maar voorspelbaar.',
+    kernpunten: [
+      'Ideaal voor familie- of partnerbedrijven',
+      'Duidelijke wettelijke structuur',
+      'Gérant majoritaire = TNS regime',
+      'Beperkte aansprakelijkheid',
+      'Lagere oprichtingskosten dan SAS'
+    ],
+    waaromNiet: 'Rigide structuur, lastig voor externe investeerders, verplichte algemene vergaderingen, beperkte flexibiliteit statuten.',
+    wanneerWel: 'Samenwerking met vaste partners, familiebedrijven, traditionele sectoren.'
+  },
+
+  'SAS': {
+    naam: 'SAS (Société par Actions Simplifiée)',
+    uitleg: 'De moderne vennootschapsvorm met maximale flexibiliteit. Standaard voor scale-ups en investeerders.',
+    kernpunten: [
+      'Volledige contractsvrijheid in statuten',
+      'Verschillende soorten aandelen mogelijk',
+      'Président = assimilé salarié status',
+      'Aantrekkelijk voor venture capital',
+      'Moderne governance opties'
+    ],
+    waaromNiet: 'Complexe oprichting, hoge juridische kosten, alleen zinvol met meerdere partijen of investeerders, substantiële administratieve last.',
+    wanneerWel: 'Meerdere founders, investeerders, internationale ambities, complexe aandeelhoudersstructuren.'
+  }
+};
+
+// Event handlers
+document.querySelectorAll('.keuze').forEach(knop => {
+  knop.addEventListener('click', function() {
+    const stap = parseInt(this.closest('.beslismoment').dataset.stap);
+    const antwoord = this.dataset.antwoord;
+    
+    // Sla antwoord op
+    antwoorden[stap] = antwoord;
+    
+    // Markeer als gekozen
+    this.parentElement.querySelectorAll('.keuze').forEach(k => k.classList.remove('gekozen'));
+    this.classList.add('gekozen');
+    
+    // Toon volgende stap of resultaat
+    if (stap < totaalStappen) {
+      setTimeout(() => {
+        const volgende = document.querySelector(`[data-stap="${stap + 1}"]`);
+        volgende.classList.add('actief');
+        volgende.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 300);
+    } else {
+      // Alle vragen beantwoord, toon resultaat
+      setTimeout(() => toonResultaat(), 500);
+    }
   });
 });
 
-document.getElementById('showResult').addEventListener('click', () => {
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
-});
-
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-  });
-});
+const toonResultaat = () => {
+  const advies = bepaalRechtsvorm();
+  const hoofdInfo = rechtsvormInfo[advies.hoofd];
+  const altInfo = rechtsvormInfo[advies.alternatief];
+  
+  // Vul hoofdkeuze
+  const hoofdkeuzeEl = document.querySelector('.hoofdkeuze');
+  hoofdkeuzeEl.querySelector('.rechtsvorm-naam').textContent = hoofdInfo.naam;
+  hoofdkeuzeEl.querySelector('.rechtsvorm-uitleg').textContent = hoofdInfo.uitleg;
+  const hoofdPunten = hoofdkeuzeEl.querySelector('.kernpunten');
+  hoofdPunten.innerHTML = hoofdInfo.kernpunten.map(punt => `<li>${punt}</li>`).join('');
+  
+  // Vul alternatief
+  const alternatiefEl = document.querySelector('.alternatief');
+  alternatiefEl.querySelector('.rechtsvorm-naam').textContent = 'Alternatief: ' + altInfo.naam;
+  alternatiefEl.querySelector('.rechtsvorm-uitleg').textContent = altInfo.uitleg;
+  const altPunten = alternatiefEl.querySelector('.kernpunten');
+  altPunten.innerHTML = altInfo.kernpunten.map(punt => `<li>${punt}</li>`).join('');
+  
+  // Vul "waarom niet" sectie
+  const andereVormenEl = document.getElementById('andere-vormen');
+  andereVormenEl.innerHTML = advies.anderen.map(vorm => {
+    const info = rechtsvormInfo[vorm];
+    return `
+      <div class="andere-vorm">
+        <div class="vorm-naam">${info.naam}</div>
+        <div class="vorm-reden">${info.waaromNiet}</div>
+        <div class="vorm-wanneer">Wel interessant: ${info.wanneerWel}</div>
+      </div>
+    `;
+  }).join('');
+  
+  // Toon resultaat
+  document.getElementById('resultaat-sectie').style.display = 'block';
+  document.getElementById('resultaat-sectie').classList.add('fade-in');
+  document.getElementById('resultaat-sectie').scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
 </script>
 
 </body>
